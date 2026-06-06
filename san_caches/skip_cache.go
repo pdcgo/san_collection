@@ -23,3 +23,7 @@ func (s *skipCacheManager) Get(ctx context.Context, key CacheKey, value any) err
 func (s *skipCacheManager) Del(ctx context.Context, key CacheKey) error {
 	return nil
 }
+
+func (s *skipCacheManager) DelNamespace(ctx context.Context, namespace string) error {
+	return nil
+}

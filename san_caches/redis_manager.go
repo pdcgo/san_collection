@@ -60,3 +60,24 @@ func (cm *redisCacheManager) Del(ctx context.Context, key CacheKey) error {
 	}
 	return cm.c.Del(ctx, keyStr).Err()
 }
+
+func (cm *redisCacheManager) DelNamespace(ctx context.Context, namespace string) error {
+	pattern := namespace + "*"
+	var cursor uint64
+	for {
+		keys, next, err := cm.c.Scan(ctx, cursor, pattern, 200).Result()
+		if err != nil {
+			return err
+		}
+		if len(keys) > 0 {
+			if err := cm.c.Del(ctx, keys...).Err(); err != nil {
+				return err
+			}
+		}
+		cursor = next
+		if cursor == 0 {
+			break
+		}
+	}
+	return nil
+}

@@ -112,11 +112,12 @@ func ExtractRoleFromRequest(req connect.AnyRequest, secret string) (*role_base.I
 }
 
 func enforcePolicy(policy *role_base.RequestPolicy, identity *role_base.Identity) error {
-	// TODO: implementasi policy
-	for _, r := range policy.Roles {
-		if r == identity.Role {
-			return nil
-		}
-	}
-	return fmt.Errorf("%s role %s not allowed", identity.Username, identity.Role.String())
+	panic("unimplemented")
+	// // TODO: implementasi policy
+	// for _, r := range policy.Roles {
+	// 	if r == identity.Role {
+	// 		return nil
+	// 	}
+	// }
+	// return fmt.Errorf("%s role %s not allowed", identity.Username, identity.Role.String())
 }
